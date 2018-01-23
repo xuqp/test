@@ -20,7 +20,7 @@ public class MyController {
 	CommonService service; 
     
 	/**
-	 * 鏌ヨ缁勭粐鐨勬纭??
+	 * 查询组织的正确性
 	 * library  construction
 	 * @return
 	 */
@@ -41,7 +41,7 @@ public class MyController {
     	}
     }  
     /**
-	 * 鏌ヨ瑕佷慨鏀圭殑鏁版嵁姝ｇ‘鎬?
+	 * 查询要修改的数据正确性
 	 * @return
 	 */
     @RequestMapping(value = "/queryData",method=RequestMethod.POST) 
@@ -51,7 +51,7 @@ public class MyController {
           
     } 
     /**
-	 * 鏇存柊姝ｇ‘鏁版嵁
+	 * 更新正确数据
 	 * @return
 	 */
     @RequestMapping(value = "/updateData",method=RequestMethod.POST) 
