@@ -14,7 +14,7 @@ import com.my.web.service.CommonService;
    
 @Controller  
 @RequestMapping("/bill")  
-public class MyController {   
+public class MyController {  
 	
 	@Autowired  
 	CommonService service; 
@@ -37,7 +37,7 @@ public class MyController {
             return vol;  
     	}else{
     		vol.setOrgStatus("2");
-    		return  vol;
+    		return vol;
     	}
     }  
     /**
