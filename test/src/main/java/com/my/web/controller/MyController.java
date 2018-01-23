@@ -20,7 +20,7 @@ public class MyController {
 	CommonService service; 
     
 	/**
-	 * ²éÑ¯×éÖ¯µÄÕıÈ·ĞÔ
+	 * æŸ¥è¯¢ç»„ç»‡çš„æ­£ç¡®æ€§
 	 * library  construction
 	 * @return
 	 */
@@ -37,11 +37,11 @@ public class MyController {
             return vol;  
     	}else{
     		vol.setOrgStatus("2");
-    		return  vol;
+    		return   vol;
     	}
     }  
     /**
-	 * ²éÑ¯ÒªĞŞ¸ÄµÄÊı¾İÕıÈ·ĞÔ
+	 * æŸ¥è¯¢è¦ä¿®æ”¹çš„æ•°æ®æ­£ç¡®æ€§
 	 * @return
 	 */
     @RequestMapping(value = "/queryData",method=RequestMethod.POST) 
@@ -51,7 +51,7 @@ public class MyController {
           
     } 
     /**
-	 * ¸üĞÂÕıÈ·Êı¾İ
+	 * æ›´æ–°æ­£ç¡®æ•°æ®
 	 * @return
 	 */
     @RequestMapping(value = "/updateData",method=RequestMethod.POST) 
