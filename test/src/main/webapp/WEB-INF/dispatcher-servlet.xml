@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://www.springframework.org/schema/mvc  
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+            http://www.springframework.org/schema/context  
+            http://www.springframework.org/schema/context/spring-context.xsd"  
+    default-lazy-init="true">  
+      
+    <!-- 通过mvc:resources设置静态资源，这样servlet就会处理这些静态资源，而不通过控制器 -->  
+    <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->  
+    <mvc:resources location="/*.html" mapping="/**.html" />  
+    <mvc:resources location="/css/*" mapping="/css/**" />  
+    <mvc:resources location="/js/*" mapping="/js/**" />  
+    <mvc:resources location="/images/*" mapping="/images/**" />  
+      
+    <!-- 添加注解驱动 -->  
+    <mvc:annotation-driven />  
+    <!-- 默认扫描的包路径 -->  
+    <context:component-scan base-package="com.my.web" />  
+      
+    <!-- mvc:view-controller可以在不需要Controller处理request的情况，转向到设置的View -->  
+    <!-- 像下面这样设置，如果请求为/，则不通过controller，而直接解析为/index.jsp -->  
+    <mvc:view-controller path="/" view-name="index" />  
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">  
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>  
+        <!-- 配置jsp路径前缀 -->  
+        <property name="prefix" value="/"></property>  
+        <!-- 配置URl后缀 -->  
+        <property name="suffix" value=".jsp"></property>  
+    </bean>
+  
+    <!-- apache.dbcp连接池的配置 -->  
+    <!-- <bean id="dataSource"  
+        class="org.apache.commons.dbcp.BasicDataSource"  
+        destroy-method="close">  
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>  
+        <property name="url" value="jdbc:mysql://localhost:3306/test"></property>  
+        <property name="username" value="root"></property>  
+        <property name="password" value="a12345678"></property>  
+        <property name="maxActive" value="100"></property>  
+        <property name="maxIdle" value="30"></property>  
+        <property name="maxWait" value="500"></property>  
+        <property name="defaultAutoCommit" value="true"></property>  
+    </bean>  -->
+    <bean id="parentDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"></bean> 
+    
+    <bean id="mySqlDataSource" parent="parentDataSource">  
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>  
+	    <property name="url" value="jdbc:mysql://localhost:3306/test"></property>  
+	    <property name="username" value="root"></property>  
+	    <property name="password" value="a12345678"></property>   
+	</bean>  
+  
+    <bean id="mySqlDataSource1" parent="parentDataSource">  
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>  
+	    <property name="url" value="jdbc:mysql://localhost:3306/test2"></property>  
+	    <property name="username" value="root"></property>  
+	    <property name="password" value="a12345678"></property>  
+	</bean>   
+  
+<bean id="dataSource" class="com.my.web.source.DataSources">  
+    <property name="targetDataSources">  
+        <map key-type="java.lang.String">  
+            <entry value-ref="mySqlDataSource" key="MYSQL"></entry>  
+            <entry value-ref="mySqlDataSource1" key="MYSQL1"></entry>  
+        </map>  
+    </property>  
+    <property name="defaultTargetDataSource" ref="mySqlDataSource"></property>  
+</bean> 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
+      
+    <!-- jdbc注入 -->  
+    <bean id="jdbcTemplate"  
+        class="org.springframework.jdbc.core.JdbcTemplate">  
+        <property name="dataSource">  
+            <ref bean="dataSource" />  
+        </property>  
+    </bean>  
+      
+    <!-- dao注入 -->  
+    <bean id="personService" class="com.my.web.service.imp.CommonServiceImp">  
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+    </bean>   
+      
+</beans>  
