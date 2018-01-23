@@ -20,7 +20,7 @@ public class MyController {
 	CommonService service; 
     
 	/**
-	 * 查询组织的正确性
+	 * 鏌ヨ缁勭粐鐨勬纭??
 	 * library  construction
 	 * @return
 	 */
@@ -37,11 +37,11 @@ public class MyController {
             return vol;  
     	}else{
     		vol.setOrgStatus("2");
-    		return    vol;
+    		return  vol;
     	}
     }  
     /**
-	 * 查询要修改的数据正确性
+	 * 鏌ヨ瑕佷慨鏀圭殑鏁版嵁姝ｇ‘鎬?
 	 * @return
 	 */
     @RequestMapping(value = "/queryData",method=RequestMethod.POST) 
@@ -51,7 +51,7 @@ public class MyController {
           
     } 
     /**
-	 * 更新正确数据
+	 * 鏇存柊姝ｇ‘鏁版嵁
 	 * @return
 	 */
     @RequestMapping(value = "/updateData",method=RequestMethod.POST) 
